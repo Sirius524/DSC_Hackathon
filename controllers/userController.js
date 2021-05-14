@@ -18,13 +18,15 @@ exports.login = (req, res, next) => {
   }
 
   var token = generateToken();
-  User.updateOne({ _id: user._id }, { token: token });
+  User.updateOne({ _id: user._id }, { _token: token });
 
-  res.status(200).json({
-    status: "success",
-    message: "Login success!",
-    token: token,
-  });
+  res
+    .status(200)
+    .json({
+      status: "success",
+      message: "Login success!",
+    })
+    .cookie("_token", token, { expires: new Date(Date.now() + 2 * 60 * 60 * 1000) });
 };
 
 var generateToken = () => {
