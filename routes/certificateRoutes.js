@@ -1,18 +1,21 @@
 const express = require("express");
-const tourController = require("../controllers/tourController");
+const certificateController = require("../controllers/certificateController");
 
 const router = express.Router();
 
-router.param("id", tourController.checkID);
+router.param("id", certificateController.checkID);
 router
     .route("/")
-    .get(tourController.getAllTours)
-    .post(tourController.checkBody, tourController.createTour);
+    .get(certificateController.getAllCertificates)
+    .post(
+        certificateController.checkBody,
+        certificateController.createCertificate
+    );
 
 router
     .route("/:id")
-    .get(tourController.getTour)
-    .patch(tourController.updateTour)
-    .delete(tourController.deleteTour);
+    .get(certificateController.getCertificate)
+    .patch(certificateController.updateCertificate)
+    .delete(certificateController.deleteCertificate);
 
 module.exports = router;
