@@ -34,10 +34,24 @@ var generateToken = () => {
 };
 
 exports.logout = (req, res, next) => {
-  res.status(500).json({
-    status: "error",
-    message: "This route is not yet defined!",
-  });
+  var token = req.header.cookie._token;
+
+  if (token == null) {
+    res.status(200).json({
+      status: "error",
+      message: "You didn't logged in!",
+    });
+  }
+
+  User.updateOne({ _token: token }, { _token: "" });
+
+  res
+    .status(200)
+    .json({
+      status: "success",
+      message: "Logout successfully!",
+    })
+    .clearCookie("_token");
 };
 
 exports.registerUser = (req, res, next) => {
