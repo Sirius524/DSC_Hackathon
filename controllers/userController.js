@@ -1,36 +1,67 @@
-const fs = require('fs');
+// const fs = require("fs");
+// const users = JSON.parse(fs.readFileSync(`${__dirname}/../dev-data/data/users.json`));
+const express = require("express");
+const app = express();
+var User = require("../model/User.js");
 
-const users = JSON.parse(
-  fs.readFileSync(`${__dirname}/../dev-data/data/users.json`)
-);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-exports.getAllUsers = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet defined!',
+exports.login = (req, res, next) => {
+  var user = User.findOne({ email: req.body.email, password: req.body.password });
+
+  if (user == null) {
+    res.status(200).json({
+      status: "error",
+      message: "Oops! Your email address or password doesn't match our record.",
+    });
+  }
+
+  var token = generateToken();
+  User.updateOne({ _id: user._id }, { token: token });
+
+  res.status(200).json({
+    status: "success",
+    message: "Login success!",
+    token: token,
   });
 };
-exports.getUser = (req, res) => {
+
+var generateToken = () => {
+  return Math.random().toString(36).substr(2);
+};
+
+exports.logout = (req, res, next) => {
   res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet defined!',
+    status: "error",
+    message: "This route is not yet defined!",
   });
 };
-exports.createUser = (req, res) => {
+
+exports.registerUser = (req, res, next) => {
   res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet defined!',
+    status: "error",
+    message: "This route is not yet defined!",
   });
 };
-exports.updateUser = (req, res) => {
+
+exports.getUserIndex = (req, res, next) => {
   res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet defined!',
+    status: "error",
+    message: "This route is not yet defined!",
   });
 };
-exports.deleteUser = (req, res) => {
+
+exports.getUserProfile = (req, res, next) => {
   res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet defined!',
+    status: "error",
+    message: "This route is not yet defined!",
+  });
+};
+
+exports.deleteUser = (req, res, next) => {
+  res.status(500).json({
+    status: "error",
+    message: "This route is not yet defined!",
   });
 };
