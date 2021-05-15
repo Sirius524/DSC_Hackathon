@@ -5,7 +5,7 @@ const certificates = JSON.parse(
 );
 
 exports.checkID = (req, res, next, val) => {
-    console.log(`Tour id is: ${val}`);
+    console.log(`Certificate id is: ${val}`);
 
     if (req.params.id * 1 > certificates.length) {
         return res.status(404).json({
