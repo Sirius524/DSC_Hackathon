@@ -3,6 +3,7 @@
 const express = require("express");
 const app = express();
 const User = require("../model/User.js");
+const ObjectId = require("mongoose").Types.ObjectId;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -16,16 +17,15 @@ exports.login = (req, res, next) => {
       });
     } else {
       let token = generateToken();
-      console.log(token);
-      User.updateOne({ _id: user._id }, { _token: token });
-
-      res
-        .status(200)
-        .cookie("_token", token, { expires: new Date(Date.now() + 2 * 60 * 60 * 1000) })
-        .json({
-          status: "success",
-          message: "Login success!",
-        });
+      User.updateOne({ _id: user._id }, { _token: token }).then(() => {
+        res
+          .status(200)
+          .cookie("_token", token, { expires: new Date(Date.now() + 2 * 60 * 60 * 1000) })
+          .json({
+            status: "success",
+            message: "Login success!",
+          });
+      });
     }
   });
 };
