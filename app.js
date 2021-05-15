@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 });
 
 // 2) Route Handlers
-// 3) Rounte
+// 3) Route
 
 const certificateRouter = require("./routes/certificateRoutes");
 const userRouter = require("./routes/userRoutes");
