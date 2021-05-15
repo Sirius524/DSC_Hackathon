@@ -1,8 +1,8 @@
 const fs = require("fs");
 
-const certificates = JSON.parse(
-    fs.readFileSync(`${__dirname}/../dev-data/data/certificates-simple.json`)
-);
+// const certificates = JSON.parse(
+//     fs.readFileSync(`${__dirname}/../dev-data/data/certificates-simple.json`)
+// );
 
 exports.checkID = (req, res, next, val) => {
     console.log(`Certificate id is: ${val}`);
