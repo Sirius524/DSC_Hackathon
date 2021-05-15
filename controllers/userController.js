@@ -55,9 +55,17 @@ exports.logout = (req, res, next) => {
 };
 
 exports.registerUser = (req, res, next) => {
-  res.status(500).json({
-    status: "error",
-    message: "This route is not yet defined!",
+  User.save({ name: req.body.name, email: req.body.email, password: req.body.password }).catch((error) => {
+    res.status(200).json({
+      status: "error",
+      message: "Something went wrong!",
+      log: error,
+    });
+  });
+
+  res.status(200).json({
+    status: "success",
+    message: "Registered successfully!",
   });
 };
 
