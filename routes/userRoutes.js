@@ -7,7 +7,7 @@ router.route("/login").post(userController.login);
 
 router.route("/register").post(userController.registerUser);
 
-router.use(userController.checkLogin);
+// router.use(userController.checkLogin);
 
 router.route("/logout").post(userController.logout);
 
