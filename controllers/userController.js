@@ -9,7 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 
 exports.login = (req, res, next) => {
   User.findOne({ email: req.body.email }).then((user) => {
-    if (req.body.password != user.password) {
+    if (!user || req.body.password != user.password) {
       res.status(200).json({
         status: "error",
         message: "Oops! Your email address or password doesn't match our record.",
