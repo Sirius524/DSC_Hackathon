@@ -1,11 +1,9 @@
-// const fs = require("fs");
-// const users = JSON.parse(fs.readFileSync(`${__dirname}/../dev-data/data/users.json`));
 const express = require("express");
 const app = express();
 const User = require("../model/User.js");
 const ObjectId = require("mongoose").Types.ObjectId;
 
-app.use(express.json());
+
 app.use(express.urlencoded({ extended: true }));
 
 var generateToken = () => {

@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const giftSchema = new Schema({
   userId: { type: mongoose.Types.ObjectId, required: true, unique: true, dropDups: true },
-  teddyBear: { type: Number, default: 0 },
+  bear: { type: Number, default: 0 },
   flower: { type: Number, default: 0 },
 });
 
