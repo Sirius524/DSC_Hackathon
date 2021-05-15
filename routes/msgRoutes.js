@@ -3,7 +3,8 @@ const msgController = require("./../controllers/msgController");
 
 const router = express.Router();
 
-router.route("/blog")
+// router.route(req.headers.cookie, msgController.checkID);
+router.route("/")
     .post(msgController.writeContent)
     .get(msgController.readContent)
     .delete(msgController.deleteContent)
