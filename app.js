@@ -27,9 +27,11 @@ app.use((req, res, next) => {
 const certificateRouter = require("./routes/certificateRoutes");
 const userRouter = require("./routes/userRoutes");
 const msgRouter = require("./routes/msgRoutes");
+const giftRouter = require("./routes/giftRoutes");
 
 app.use("/api/certificate", certificateRouter);
 app.use("/api", userRouter);
 app.use("/api/blogs", msgRouter);
+app.use("/api/gifts", giftRouter);
 
 module.exports = app;
