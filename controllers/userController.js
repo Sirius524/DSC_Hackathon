@@ -17,7 +17,7 @@ exports.login = (req, res, next) => {
       });
     } else {
       let token = generateToken();
-      User.updateOne({ _id: user._id }, { _token: token }).then(() => {
+      User.updateOne({ _id: user._id }, { $set: {_token: token}}).then(() => {
         res
           .status(200)
           .cookie("_token", token, { expires: new Date(Date.now() + 2 * 60 * 60 * 1000) })
@@ -35,16 +35,16 @@ var generateToken = () => {
 };
 
 exports.logout = (req, res, next) => {
-  var token = req.header.cookie._token;
+  let token = req.body._token;
 
-  if (token == null) {
+  if (req.body._token == null) {
     res.status(200).json({
       status: "error",
       message: "You didn't logged in!",
     });
   }
 
-  User.updateOne({ _token: token }, { _token: "" });
+  User.updateOne({ _token: token }, { $set: { _token: null } });
 
   res
     .status(200)
