@@ -8,6 +8,51 @@ const ObjectId = require("mongoose").Types.ObjectId;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+var generateToken = () => {
+  return Math.random().toString(36).substr(2);
+};
+
+var parseCookie = (cookie) => {
+  var cookies = Array();
+  cookie.split(";").forEach((element) => {
+    element = element.trim().split("=");
+
+    cookies[element[0]] = element[1];
+  });
+
+  return cookies;
+};
+
+exports.checkLogin = (req, res, next) => {
+  if (req.headers.cookie == undefined) {
+    res.status(403).json({
+      status: "fail",
+      message: "Permission denied!",
+    });
+  }
+  console.log(req);
+  var cookies = parseCookie(req.headers.cookie);
+
+  User.exists({ _token: cookies["_token"] })
+    .catch((error) => {
+      res.status(200).json({
+        status: "error",
+        message: "Query error!",
+      });
+      console.log(error);
+    })
+    .then((result) => {
+      if (!result) {
+        res.status(403).json({
+          status: "fail",
+          message: "Permission denied!",
+        });
+      }
+
+      next();
+    });
+};
+
 exports.login = (req, res, next) => {
   User.findOne({ email: req.body.email }).then((user) => {
     if (!user || req.body.password != user.password) {
@@ -30,10 +75,6 @@ exports.login = (req, res, next) => {
   });
 };
 
-var generateToken = () => {
-  return Math.random().toString(36).substr(2);
-};
-
 exports.logout = (req, res, next) => {
   if (req.headers.cookie == undefined) {
     res.status(200).json({
@@ -53,17 +94,6 @@ exports.logout = (req, res, next) => {
       message: "Logout successfully!",
     });
   });
-};
-
-var parseCookie = (cookie) => {
-  var cookies = Array();
-  cookie.split(";").forEach((element) => {
-    element = element.trim().split("=");
-
-    cookies[element[0]] = element[1];
-  });
-
-  return cookies;
 };
 
 exports.registerUser = (req, res, next) => {
@@ -112,7 +142,7 @@ exports.getUserProfile = (req, res, next) => {
       console.log(error);
     })
     .then((user) => {
-      res.status(500).json({
+      res.status(200).json({
         status: "success",
         message: "Query successfully!",
         user: user,
