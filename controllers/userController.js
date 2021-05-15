@@ -62,15 +62,18 @@ exports.login = (req, res, next) => {
       });
     } else {
       let token = generateToken();
-      User.updateOne({ _id: user._id }, { $set: { _token: token } }).then(() => {
-        res
-          .status(200)
-          .cookie("_token", token, { expires: new Date(Date.now() + 2 * 60 * 60 * 1000) })
-          .json({
-            status: "success",
-            message: "Login success!",
-          });
-      });
+      User.findOneAndUpdate({ query: { _id: user._id }, update: { $set: { _token: token } } })
+        .select(["_id", "name", "email", "address"])
+        .then((user) => {
+          res
+            .status(200)
+            .cookie("_token", token, { expires: new Date(Date.now() + 2 * 60 * 60 * 1000) })
+            .json({
+              status: "success",
+              message: "Login success!",
+              user: user,
+            });
+        });
     }
   });
 };
@@ -114,7 +117,7 @@ exports.registerUser = (req, res, next) => {
 
 exports.getUserIndex = (req, res, next) => {
   User.find()
-    .select(["name", "email"])
+    .select(["_id", "name", "email", "address"])
     .catch((error) => {
       res.status(200).json({
         status: "error",
@@ -133,7 +136,7 @@ exports.getUserIndex = (req, res, next) => {
 
 exports.getUserProfile = (req, res, next) => {
   User.findOne({ _id: ObjectId(req.params.id) })
-    .select(["name", "email"])
+    .select(["_id", "name", "email", "address"])
     .catch((error) => {
       res.status(200).json({
         status: "error",
