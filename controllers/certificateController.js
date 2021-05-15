@@ -1,8 +1,8 @@
 const fs = require("fs");
 
-const certificates = JSON.parse(
-    fs.readFileSync(`${__dirname}/../dev-data/data/certificates-simple.json`)
-);
+// const certificates = JSON.parse(
+//     fs.readFileSync(`${__dirname}/../dev-data/data/certificates-simple.json`)
+// );
 
 exports.checkID = (req, res, next, val) => {
     console.log(`Certificate id is: ${val}`);
@@ -20,7 +20,7 @@ exports.checkBody = (req, res, next) => {
     if (!req.body.name || !req.body.price) {
         return res.status(400).json({
             status: "fail",
-            message: "Missing name or price",
+            message: "Missing name",
         });
     }
     next();
