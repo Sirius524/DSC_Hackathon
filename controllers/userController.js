@@ -17,7 +17,7 @@ exports.login = (req, res, next) => {
       });
     } else {
       let token = generateToken();
-      User.updateOne({ _id: user._id }, { _token: token }).then(() => {
+      User.updateOne({ _id: user._id }, { $set: { _token: token } }).then(() => {
         res
           .status(200)
           .cookie("_token", token, { expires: new Date(Date.now() + 2 * 60 * 60 * 1000) })
