@@ -55,8 +55,8 @@ exports.writeContent = (req, res, next) => {
 };
 
 exports.readContent = (req, res, next) => {
-    Msg.find({ receiver: req.body.receiver })
-        .select(["giver", "data"])
+    Msg.find({})
+        .select(["giver", "content"])
         .catch((error) => {
             res.status(200).json({
                 status: "error",
