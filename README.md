@@ -31,10 +31,17 @@ start
 
 ## Author
 
-👤 **朱泳霖 賴鴻運 鄭智元 洪祥銘 顧明祐**
+👤 **朱泳霖 
+     賴鴻運 
+     鄭智元 
+     洪祥銘 
+     顧明祐**
 
-* Github: [@Lexlie billy07001 kevinone25 mark0324 songchiu ](https://github.com/Lexlie billy07001 kevinone25 mark0324 songchiu )
-
+* Github: [@Lexlie](https://github.com/Lexlie)
+          [@billy07001](https://github.com/billy07001)
+          [@kevinjone25](https://github.com/kevinjone25)
+          [@mark0324](https://github.com/mark0324)
+          [@songchiu](https://github.com/songchiu)
 ## Show your support
 
 Give a ⭐️ if this project helped you!
