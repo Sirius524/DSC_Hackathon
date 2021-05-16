@@ -35,11 +35,12 @@ exports.checkID = (req, res, next) => {
 }
 
 exports.writeContent = (req, res, next) => {
-    Msg.create({ giver: req.body.giver, receiver: req.body.receiver, content: req.body.content })
+    Msg.create({ giver: req.body.giver, content: req.body.content })
         .catch((error) => {
             res.status(200).json({
                 status: "error",
                 message: "Something went wrong!",
+                error: error
             });
         })
         .then(() => {
