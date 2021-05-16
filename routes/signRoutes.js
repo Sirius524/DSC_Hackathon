@@ -1,5 +1,5 @@
 const express = require("express");
-const giftController = require("./../controllers/signController");
+const signController = require("./../controllers/signController");
 
 const router = express.Router();
 
