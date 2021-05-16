@@ -1,6 +1,6 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const Msg = require('../model/Msg.js');
+const Msg = require("../model/Msg.js");
 const User = require("../model/User.js");
 
 app.use(express.json());
@@ -26,13 +26,13 @@ exports.checkID = (req, res, next) => {
         if (!user) {
             res.status(404).json({
                 status: "error",
-                message: "Please register or login!"
-            })
+                message: "Please register or login!",
+            });
             return;
         }
-    })
+    });
     next();
-}
+};
 
 exports.writeContent = (req, res, next) => {
     Msg.create({ giver: req.body.giver, content: req.body.content })
@@ -46,7 +46,7 @@ exports.writeContent = (req, res, next) => {
         .then(() => {
             res.status(200).json({
                 status: "success",
-                message: "Message Leave Successfully!"
+                message: "Message Leave Successfully!",
             });
         });
 };
@@ -66,9 +66,9 @@ exports.readContent = (req, res, next) => {
                 status: "success",
                 message: "Query success",
                 msgs: msgs,
-            })
-        })
-}
+            });
+        });
+};
 
 exports.deleteContent = (req, res, next) => {
     Msg.deleteOne({ _id: ObjectId(req.params.id) })
@@ -84,8 +84,8 @@ exports.deleteContent = (req, res, next) => {
                 status: "success",
                 message: "Query success",
             });
-        })
-}
+        });
+};
 
 exports.updateContent = (req, res, next) => {
     Msg.updateOne({ _id: ObjectId(req.params.id) })
@@ -100,8 +100,8 @@ exports.updateContent = (req, res, next) => {
             res.status(200).json({
                 status: "success",
                 msgs: {
-                    content: 'Update Content here'
-                }
+                    content: "Update Content here",
+                },
             });
-        })
-}
+        });
+};

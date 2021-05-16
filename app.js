@@ -1,24 +1,24 @@
 // const fs = require('fs');
 const express = require("express");
 const morgan = require("morgan");
-const cors = require('cors')
+const cors = require("cors");
 
 const app = express();
 
-app.use(cors())
+app.use(cors());
 app.use(morgan("dev"));
 
 app.use(express.json());
 app.use(express.static(`${__dirname}/public`));
 
 app.use((req, res, next) => {
-  console.log("Hello from the middleware!");
-  next();
+    console.log("Hello from the middleware!");
+    next();
 });
 
 app.use((req, res, next) => {
-  req.requestTime = new Date().toISOString();
-  next();
+    req.requestTime = new Date().toISOString();
+    next();
 });
 
 // 2) Route Handlers
@@ -28,10 +28,12 @@ const certificateRouter = require("./routes/certificateRoutes");
 const userRouter = require("./routes/userRoutes");
 const msgRouter = require("./routes/msgRoutes");
 const giftRouter = require("./routes/giftRoutes");
+const signRouter = require("./routes/signRoutes");
 
 app.use("/api/certificate", certificateRouter);
 app.use("/api", userRouter);
 app.use("/api/blogs", msgRouter);
 app.use("/api/gifts", giftRouter);
+app.use("/api/signs", signRouter);
 
 module.exports = app;
